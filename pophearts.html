@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pop the Hearts 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 40px;
+      cursor: pointer;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .message {
+      position: absolute;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #ff4081;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Click the hearts to pop them 💖</h1>
+
+  <script>
+    const messages = [
+      "You're amazing 💕",
+      "I’m so lucky to have you 🌸",
+      "You make me so happy 😊",
+      "I love you ❤️",
+      "You're beautiful ✨",
+      ];
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 90 + "vw";
+      heart.style.top = Math.random() * 80 + "vh";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      heart.addEventListener("click", () => {
+        const message = document.createElement("div");
+        message.classList.add("message");
+        message.innerText = messages[Math.floor(Math.random() * messages.length)];
+        message.style.left = heart.style.left;
+        message.style.top = heart.style.top;
+        document.body.appendChild(message);
+
+        message.style.display = "block";
+        heart.remove();
+
+        setTimeout(() => {
+          message.remove();
+        }, 2000);
+      });
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 1200);
+  </script>
+</body>
+</html>
